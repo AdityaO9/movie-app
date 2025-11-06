@@ -2,6 +2,9 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: movie-app-blue
+  namespace: default
+  labels:
+    app: movie-app-blue
 spec:
   replicas: 2
   selector:
@@ -16,4 +19,10 @@ spec:
       - name: movie-app
         image: adityao9/movie-app:latest
         ports:
-        - containerPort: 80
+        - containerPort: 8080
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 10
