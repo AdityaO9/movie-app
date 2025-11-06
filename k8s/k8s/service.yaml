@@ -3,11 +3,10 @@ kind: Service
 metadata:
   name: movie-app-service
 spec:
-  type: NodePort
+  type: LoadBalancer
   selector:
-    app: movie-app
+    app: movie-app-blue  # Initially blue deployment
   ports:
     - protocol: TCP
       port: 80
       targetPort: 80
-      nodePort: 30080
